@@ -1,7 +1,6 @@
-<img alt="cute kitten" src=".repo/kitten.png" align="right" height=200 style="border-radius: .5rem">
+<img alt="cute kitten" src=".repo/kitten.png" height=200 style="border-radius: .5rem">
 
 # wasm-streams-tokio-compat
-
 <sup>**wasm-streams** **compat**ibility for **tokio**.</sup>
 
 Provides compatibility tools for converting between [`wasm_streams`](https://docs.rs/wasm-streams/latest/wasm_streams/) streams and Tokio [`AsyncRead`](https://docs.rs/tokio/latest/tokio/io/trait.AsyncRead.html) and [`AsyncWrite`](https://docs.rs/tokio/latest/tokio/io/trait.AsyncWrite.html).
