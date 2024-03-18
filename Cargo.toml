@@ -1,0 +1,14 @@
+[package]
+name = "wasm-streams-tokio-compat"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+futures-util = "0.3.30"
+js-sys = "0.3.69"
+tokio = { version = "1.36.0", features = ["io-util", "rt", "macros"] }
+wasm-bindgen-futures = "0.4.42"
+wasm-bindgen-test = "0.3.42"
+wasm-streams = "0.4.0"
+web-sys = { version = "0.3.69", features = ["ReadableStreamByobReader", "File", "Window", "Navigator", "Storage", "FileSystemFileHandle", "FileSystemWritableFileStream", "StorageManager", "FileSystemDirectoryHandle"] }
+wasm-bindgen = "0.2.92"
