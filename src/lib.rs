@@ -240,7 +240,6 @@ impl<'stream> Drop for IntoTokioWrite<'stream> {
 
 use std::task::ready;
 use tokio::io::{AsyncRead, ReadBuf};
-use js_sys::Object;
 use js_sys::Reflect;
 use js_sys::wasm_bindgen::JsCast;
 use wasm_streams::readable::{ReadableStreamBYOBReader, ReadableStreamDefaultReader};
@@ -326,14 +325,12 @@ impl<'stream> AsyncRead for IntoTokioRead<'stream> {
         cx: &mut Context<'_>,
         buf: &mut ReadBuf<'_>,
     ) -> Poll<io::Result<()>> {
-        let read_fut = if let Some(fut) = self.fut.as_mut() { fut} else {
-            let buf_len = u32::try_from(buf.capacity()).unwrap_or(u32::MAX);
+        let read_fut = if let Some(fut) = self.fut.as_mut() { fut } else {
+            let buf_len = u32::try_from(buf.remaining()).unwrap_or(u32::MAX);
             let buffer = match self.buffer.take() {
-                Some(buffer) if buffer.byte_length() >= buf_len => buffer,
+                Some(buffer) if buffer.byte_length() >= buf_len => buffer.subarray(0, buf_len),
                 _ => Uint8Array::new_with_length(buf_len),
             };
-
-            let buffer = buffer.subarray(0, buf_len).unchecked_into::<Object>();
 
             match &self.reader {
                 Some(reader) => {
